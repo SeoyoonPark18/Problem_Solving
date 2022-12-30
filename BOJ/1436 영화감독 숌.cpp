@@ -8,24 +8,29 @@ int main() {
 	cin.tie(NULL);
 
 	int n; cin >> n;
+	int cnt = 0;
 	int currentNum = 666;
 
-	for (int i = 0; i < n; i++) {
-		while (1) {
-			string s = to_string(currentNum);
-			bool found = s.find("666") != string::npos;
+	while (1) {
+		string s = to_string(currentNum);
+		bool found = s.find("666") != string::npos;
 
-			if (found && (i == n - 1)) {
+		if (found) {
+			cnt++;
+			if (cnt == n) {
 				cout << currentNum;
 				break;
 			}
 			else {
 				currentNum++;
 			}
+
 		}
-		
+		else {
+			currentNum++;
+		}
 	}
-	//cout << currentNum;
+
 
 	return 0;
 }
