@@ -10,14 +10,15 @@ int opt[10];
 int optCnt = 0;
 int caseList[10];
 bool used[10];
-int minNum = 10000;
-int maxNum = -10000;
+int minNum = 100000;
+int maxNum = -100000;
 
 void backTracking(int cnt) {
 	optCnt = n - 1;
-	int cal = list[0];
+
 
 	if (cnt == optCnt) { //1 1 2 3 4
+		int cal = list[0];
 		for (int i = 0; i < optCnt; i++) {
 			switch (caseList[i]) {
 			case 1:
@@ -27,10 +28,10 @@ void backTracking(int cnt) {
 				cal -= list[i + 1];
 				break;
 			case 3:
-				cal *= list[i + 1];
+				cal = cal * list[i + 1];
 				break;
 			case 4:
-				cal /= list[i + 1];
+				cal = cal / list[i + 1];
 				break;
 			}
 		}
@@ -48,13 +49,13 @@ void backTracking(int cnt) {
 	for (int i = 0; i < optCnt; i++) {
 		if (!used[i]) {
 			used[i] = true;
-			caseList[i] = opt[i];
+			caseList[cnt] = opt[i];
 			backTracking(cnt + 1);
-			caseList[i] = 0;
+			//caseList[cnt] = 0;
 			used[i] = false;
 		}
-	}	
-	
+	}
+
 }
 
 int main() {
@@ -83,12 +84,13 @@ int main() {
 	for (int i = 0; i < m; i++) {
 		opt[cnt++] = 4;
 	}
-	
-	
-	backTracking(0); 
+	//1 1 2 3 4
+
+
+	backTracking(0);
 
 	cout << maxNum << "\n" << minNum;
-	
+
 
 	return 0;
 }
