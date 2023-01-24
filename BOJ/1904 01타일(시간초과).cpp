@@ -64,6 +64,7 @@ int main() {
 	int n; cin >> n;
 	tile(n);
 	
+	v.erase(unique(v.begin(), v.end()), v.end());
 	for (int i = 0; i < v.size(); i++) {
 		cout<< v[i] << " ";
 	}
