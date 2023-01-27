@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-long long arr[101] = { 0, }; // int(x)
+long long arr[101] = { 0, }; // cannot use int because n value will be over than 78
 
 
 
