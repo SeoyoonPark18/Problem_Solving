@@ -1,40 +1,38 @@
 //BOJ 10844
 #include <iostream>
 #include <algorithm>
-#include <vector>
 using namespace std;
 
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	vector<int> v;
+	long long arr[101][10] = { 0, };
 	int n; cin >> n;
 
-	for (int i = 0; i < 9; i++) {
-		v.push_back(i + 1);
+	for (int i = 1; i < 10; i++) {
+		arr[1][i] = 1;
 	}
-
-	
-	for (int j = 1; j < n; j++) {
-		//int idx = 1;
-		for (int i = 0; i < v.size(); i++) {
-			bool push = true;
-			if ((v[i] - 1) >= 0) {
-				v[i] = v[i] - 1;	
+	for (int i = 2; i <= n; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (j == 0) {
+				arr[i][j] = arr[i - 1][j + 1] % 1000000000;
+			}
+			else if (j == 9) {
+				arr[i][j] = arr[i - 1][j - 1] % 1000000000;
 			}
 			else {
-				v[i] = v[i] + 1;
-				push = false;
+				arr[i][j] = arr[i - 1][j - 1] % 1000000000;
+				arr[i][j] += arr[i - 1][j + 1] % 1000000000;
 			}
-			if ((v[i] + 1) < 10 && push == true) {
-				v.push_back(v[i] + 1);
-			}
-			//idx++;
-		}		
+		}
 	}
 
-	cout << v.size();
+	long long sum = 0;
+	for (int i = 0; i < 10; i++) {
+		sum += arr[n][i] % 1000000000;
+	}
+	cout << sum % 1000000000;
 
 	return 0;
 }
