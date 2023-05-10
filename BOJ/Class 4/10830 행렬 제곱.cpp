@@ -4,74 +4,78 @@
 #include <vector>
 using namespace std;
 
-long long a[25];
-long long arr[25] = { 0, };
+long long **arr;
+long long **arr2;
+long long **ans;
 long long n, b;
-long long c = 1000;
 
-long long* multiply(long long mul[]) { 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			int idx = i * n + j;
-			int cur = 0;
-			arr[idx] = 0;
-			while (cur < n) {
-				arr[idx] += mul[i*n + cur] * mul[cur*n + j] % c;
-			}
-		}
-	}
-	return arr;
-}
-long long* multiplyA(long long mul[]) {
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			int idx = i * n + j;
-			int cur = 0;
-			arr[idx] = 0;
-			while (cur < n) {
-				arr[idx] += mul[i*n + cur] * a[cur*n + j] % c;
-			}
-		}
-	}
-	return arr;
-}
-
-long long* rowcol(long long bb) {
+void multiply(long long bb) {
 
 	if (bb == 1) {
-		return  a;
+		return;
 	}
 
-	long long mid = bb / 2;
-	long long* mul = rowcol(mid); 
-	long long* result; 
+	multiply(bb / 2);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			long long sum = 0;
+			for (int k = 0; k < n; k++) {
+				sum += arr2[i][k] * arr2[k][j];
+			}
+			ans[i][j] = sum;
+		}
+	}
 
-	if (bb % 2 == 1) {
-		result = multiplyA(mul);
+	if (bb % 2) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				long long sum = 0;
+				for (int k = 0; k < n; k++) {
+					sum += arr[i][k] * ans[k][j];
+				}
+				arr2[i][j] = sum % 1000;
+			}
+		}
 	}
 	else {
-		result = multiply(mul);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				arr2[i][j] = ans[i][j] % 1000;
+			}
+		}
 	}
-	return result;
+
 }
 
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
-	
+
 	cin >> n >> b;
-	for (int i = 0; i < n*n; i++) {
-		cin >> a[i];
+	arr = new long long*[n];
+	arr2 = new long long*[n];
+	ans = new long long*[n];
+
+	for (int i = 0; i < n; i++) {
+		arr[i] = new long long[n];
+		arr2[i] = new long long[n];
+		ans[i] = new long long[n];
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+			arr2[i][j] = arr[i][j];
+			ans[i][j] = 0;
+		}
 	}
 
-	long long* ptr =rowcol(b);
+	multiply(b);
+
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
-			cout << ptr[i*n + j] << ' ';
+			cout << arr2[i][j] % 1000 << ' ';
 		}
 		cout << '\n';
 	}
-	
+
 
 	return 0;
 }
