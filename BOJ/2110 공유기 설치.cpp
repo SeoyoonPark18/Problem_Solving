@@ -17,24 +17,17 @@ int main() {
 		int num; cin >> num;
 		v.push_back(num);
 	}
-
 	sort(v.begin(), v.end());
 
-	int start =0;
-	int end = n - 1;
-		
+	int start = 1;
+	int end = v[n - 1];
+
 	while (start <= end) {
 		int mid = (start + end) / 2;
 
-		if (cnt < n) {
-			end = mid - 1;
-		}
-		else {
-			ans = mid;
-			start = mid + 1;
-		}
+
 	}
-	
+
 	cout << len;
 
 	return 0;
