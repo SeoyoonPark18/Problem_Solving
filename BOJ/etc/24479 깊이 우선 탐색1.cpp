@@ -9,7 +9,7 @@ int visited[100005];
 int cnt;
 
 void dfs(int cur) {
-	visited[cur] = cnt++;
+	visited[cur] = ++cnt;
 	for (int i = 0; i < graph[cur].size(); i++) {
 		if (visited[graph[cur][i]] != 0) continue;
 		dfs(graph[cur][i]);
