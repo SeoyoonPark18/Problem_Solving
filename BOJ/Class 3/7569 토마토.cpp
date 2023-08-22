@@ -14,12 +14,6 @@ int dy[6] = { 1, -1, 0, 0, 0, 0 };
 int dz[6] = { 0, 0, 0, 0, 1, -1 };
 int m, n, h;
 
-bool isRange(int x, int y, int z) {
-	if (x >= 0 && x < n && y >= 0 && y < m && z >= 0 && z < h) return true;
-	else
-		return false;
-}
-
 void bfs() {
 	while (!q.empty()) {
 		int a = get<0>(q.front());
