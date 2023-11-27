@@ -26,7 +26,6 @@ void dfs(string cur, vector<string> words, int count, string t){
             if(cnt == cur.length()-1 && !visited[i]){
                 visited[i]++;
                 dfs(words[i], words, count+1, t);
-                visited[i]--;
             }
         }
     }   
@@ -43,7 +42,7 @@ int solution(string begin, string target, vector<string> words) {
             }
         }
         if(cnt == n-1){
-            //visited[i]++;
+            visited[i]++;
             dfs(words[i], words, 1, target);
             
         }
